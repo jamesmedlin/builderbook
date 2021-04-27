@@ -1,5 +1,6 @@
 const express = require('express');
 const Book = require('../models/Book');
+const Advertisement = require('../models/Advertisement');
 const Purchase = require('../models/Purchase');
 const { createSession } = require('../stripe');
 const logger = require('../logger');
@@ -46,13 +47,31 @@ router.post('/stripe/fetch-checkout-session', async (req, res) => {
   }
 });
 
-router.get('/my-books', async (req, res) => {
+router.get('/my-advertisements', async (req, res) => {
   try {
-    const { purchasedBookIds = [] } = req.user;
+    const { advertisements } = await Advertisement.getAdvertisements(req.user._id);
 
-    const { purchasedBooks } = await Book.getPurchasedBooks({ purchasedBookIds });
+    advertisements.map((ad) => {
+      // eslint-disable-next-line no-param-reassign
+      ad.viewers = ad.viewers.length;
+      return null;
+    });
+    res.json({ advertisements });
+  } catch (err) {
+    res.json({ error: err.message || err.toString() });
+  }
+});
 
-    res.json({ purchasedBooks });
+router.get('/my-advertisement/:slug', async (req, res) => {
+  try {
+    const { advertisements } = await Advertisement.getAdvertisements(req.user._id);
+
+    advertisements.map((ad) => {
+      // eslint-disable-next-line no-param-reassign
+      ad.viewers = ad.viewers.length;
+      return null;
+    });
+    res.json({ advertisements });
   } catch (err) {
     res.json({ error: err.message || err.toString() });
   }

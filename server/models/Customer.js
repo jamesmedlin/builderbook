@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
-const { addToMailchimp } = require('../mailchimp');
+// const { addToMailchimp } = require('../mailchimp');
 const generateSlug = require('../utils/slugify');
 const sendEmail = require('../aws-ses');
 const { getEmailTemplate } = require('./EmailTemplate');
@@ -42,37 +42,20 @@ const mongoSchema = new Schema({
   displayName: String,
   avatarUrl: String,
 
-  isGithubConnected: {
-    type: Boolean,
-    default: false,
-  },
-  githubAccessToken: {
-    type: String,
-  },
-  githubId: {
-    type: String,
-  },
-  purchasedBookIds: [String],
+  advertisements: [String],
 });
 
-class UserClass {
+class CustomerClass {
   static publicFields() {
-    return [
-      'id',
-      'displayName',
-      'email',
-      'avatarUrl',
-      'slug',
-      'isAdmin',
-      'isGithubConnected',
-      'purchasedBookIds',
-    ];
+    return ['id', 'displayName', 'email', 'avatarUrl', 'slug', 'isAdmin', 'advertisements'];
   }
 
   static async signInOrSignUp({ googleId, email, googleToken, displayName, avatarUrl }) {
-    const user = await this.findOne({ googleId }).select(UserClass.publicFields().join(' '));
+    const customer = await this.findOne({ googleId }).select(
+      CustomerClass.publicFields().join(' '),
+    );
 
-    if (user) {
+    if (customer) {
       const modifier = {};
 
       if (googleToken.accessToken) {
@@ -84,17 +67,17 @@ class UserClass {
       }
 
       if (_.isEmpty(modifier)) {
-        return user;
+        return customer;
       }
 
       await this.updateOne({ googleId }, { $set: modifier });
 
-      return user;
+      return customer;
     }
 
     const slug = await generateSlug(this, displayName);
 
-    const newUser = await this.create({
+    const newCustomer = await this.create({
       createdAt: new Date(),
       googleId,
       email,
@@ -110,7 +93,7 @@ class UserClass {
       });
 
       await sendEmail({
-        from: `Kelly from Builder Book <${process.env.EMAIL_ADDRESS_FROM}>`,
+        from: `JD from Bank It! <${process.env.EMAIL_ADDRESS_FROM}>`,
         to: [email],
         subject: template.subject,
         body: template.message,
@@ -119,18 +102,18 @@ class UserClass {
       logger.debug('Email sending error:', err);
     }
 
-    try {
-      await addToMailchimp({ email, listName: 'signedup' });
-    } catch (error) {
-      logger.error('Mailchimp error:', error);
-    }
+    // try {
+    //   await addToMailchimp({ email, listName: 'signedup' });
+    // } catch (error) {
+    //   logger.error('Mailchimp error:', error);
+    // }
 
-    return _.pick(newUser, UserClass.publicFields());
+    return _.pick(newCustomer, CustomerClass.publicFields());
   }
 }
 
-mongoSchema.loadClass(UserClass);
+mongoSchema.loadClass(CustomerClass);
 
-const User = mongoose.model('User', mongoSchema);
+const Customer = mongoose.model('Customer', mongoSchema);
 
-module.exports = User;
+module.exports = Customer;

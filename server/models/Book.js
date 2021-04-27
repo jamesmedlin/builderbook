@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const frontmatter = require('front-matter');
 
 const generateSlug = require('../utils/slugify');
-const User = require('./User');
+const User = require('./Customer');
 const Purchase = require('./Purchase');
 
 const { getCommits, getRepoDetail } = require('../github');

@@ -2,7 +2,7 @@ const Stripe = require('stripe');
 const lodash = require('lodash');
 
 const Book = require('./models/Book');
-const User = require('./models/User');
+const User = require('./models/Customer');
 const logger = require('./logger');
 
 const getRootUrl = require('../lib/api/getRootUrl');

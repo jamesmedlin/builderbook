@@ -1,6 +1,6 @@
 const passport = require('passport');
 const Strategy = require('passport-google-oauth').OAuth2Strategy;
-const User = require('./models/User');
+const Customer = require('./models/Customer');
 
 function setupGoogle({ server, ROOT_URL }) {
   const verify = async (accessToken, refreshToken, profile, verified) => {
@@ -16,14 +16,14 @@ function setupGoogle({ server, ROOT_URL }) {
     }
 
     try {
-      const user = await User.signInOrSignUp({
+      const customer = await Customer.signInOrSignUp({
         googleId: profile.id,
         email,
         googleToken: { accessToken, refreshToken },
         displayName: profile.displayName,
         avatarUrl,
       });
-      verified(null, user);
+      verified(null, customer);
     } catch (err) {
       verified(err);
       console.log(err); // eslint-disable-line
@@ -41,13 +41,13 @@ function setupGoogle({ server, ROOT_URL }) {
     ),
   );
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
+  passport.serializeUser((customer, done) => {
+    done(null, customer.id);
   });
 
   passport.deserializeUser((id, done) => {
-    User.findById(id, User.publicFields(), (err, user) => {
-      done(err, user);
+    Customer.findById(id, Customer.publicFields(), (err, customer) => {
+      done(err, customer);
       // eslint-disable-next-line no-console
       // console.log('deserializeUser', id);
     });
@@ -88,7 +88,7 @@ function setupGoogle({ server, ROOT_URL }) {
         res.redirect(`${ROOT_URL}${req.session.finalUrl}`);
       } else {
         // eslint-disable-next-line
-        res.redirect('/my-books');
+        res.redirect('/dashboard');
       }
     },
   );

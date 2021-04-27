@@ -11,7 +11,7 @@ const { setupGithub } = require('./github');
 const api = require('./api');
 
 const logger = require('./logger');
-// const { insertTemplates } = require('./models/EmailTemplate');
+const { insertTemplates } = require('./models/EmailTemplate');
 const routesWithSlug = require('./routesWithSlug');
 const getRootUrl = require('../lib/api/getRootUrl');
 const setupSitemapAndRobots = require('./sitemapAndRobots');
@@ -39,6 +39,7 @@ const URL_MAP = {
   '/login': '/public/login',
   '/my-books': '/customer/my-books',
   '/dashboard': '/customer/dashboard',
+  '/dashboard/create-advertisement': '/customer/dashboard/create-advertisement',
 };
 
 const app = next({ dev });
@@ -80,7 +81,7 @@ app.prepare().then(async () => {
 
   server.use(session(sess));
 
-  // await insertTemplates();
+  await insertTemplates();
 
   setupGoogle({ server, ROOT_URL });
   setupGithub({ server, ROOT_URL });

@@ -4,7 +4,7 @@ const { oauthLoginUrl } = require('@octokit/oauth-authorization-url');
 const _ = require('lodash');
 
 const logger = require('./logger');
-const User = require('./models/User');
+const User = require('./models/Customer');
 
 require('dotenv').config();
 

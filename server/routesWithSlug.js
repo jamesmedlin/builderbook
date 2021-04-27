@@ -13,6 +13,11 @@ function routesWithSlug({ server, app }) {
     const { slug } = req.params;
     app.render(req, res, '/admin/edit-book', { slug });
   });
+
+  server.get('/edit-advertisement/:slug', (req, res) => {
+    const { slug } = req.params;
+    app.render(req, res, '/admin/edit-advertisement', { slug });
+  });
 }
 
 module.exports = routesWithSlug;

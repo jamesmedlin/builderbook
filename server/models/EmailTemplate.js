@@ -25,36 +25,30 @@ async function insertTemplates() {
   const templates = [
     {
       name: 'welcome',
-      subject: 'Welcome to builderbook.org',
+      subject: 'Welcome to Bank It!',
       message: `<%= userName %>,
         <p>
-          At Builder Book, we are excited to help you build useful, production-ready web apps from scratch.
+          We are so thankful and excited that you chose us to help you grow.
         </p>
-        <p>
-          See list of available books here.
-        </p>
-
-        Kelly & Timur,
-        Team BB
+        JD Medlin (CEO),
+        Bank It!
       `,
     },
     {
-      name: 'purchase',
-      subject: 'You purchased book at builderbook.org',
+      name: 'newAdvertisement',
+      subject: 'You have added a new advertisement!',
       message: `<%= userName %>,
         <p>
-          Thank you for purchasing our book! You will get confirmation email from Stripe shortly.
-        </p>
-        <p>
-          Start reading your book: <a href="<%= bookUrl %>" target="_blank"><%= bookTitle %></a>
+          Time to get rock and rollin!
         </p>
         <p>
           If you have any questions while reading the book,
           please fill out an issue on
-          <a href="https://github.com/builderbook/builderbook/issues" target="blank">Github</a>.
+          <a href="https://${process.env.URL_APP}/help" target="blank">Github</a>.
         </p>
 
-        Kelly & Timur, Team Builder Book
+        JD Medlin (CEO),
+        Bank It!
       `,
     },
   ];
@@ -76,7 +70,7 @@ async function getEmailTemplate(name, params) {
   const et = await EmailTemplate.findOne({ name });
 
   if (!et) {
-    throw new Error(`No EmailTemplates found.`);
+    throw new Error(`No email templates found.`);
   }
 
   return {
