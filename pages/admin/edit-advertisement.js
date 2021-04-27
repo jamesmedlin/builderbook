@@ -72,168 +72,178 @@ function EditAdvertisementPage({ ad }) {
 
   return (
     <>
-      <Button variant="contained" onClick={() => removeAd()} style={{ marginTop: '150px' }}>
-        Delete
-      </Button>
-      <label style={{ width: '50%' }}>
-        Name:{' '}
-        <input
-          type="text"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Uri:{' '}
-        <input
-          type="text"
-          value={uri}
-          onChange={(event) => {
-            setUri(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Website:{' '}
-        <input
-          type="text"
-          value={website}
-          onChange={(event) => {
-            setWebsite(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Question:{' '}
-        <input
-          type="text"
-          value={question}
-          onChange={(event) => {
-            setQuestion(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Choice:{' '}
-        <input
-          type="text"
-          value={quiz1}
-          onChange={(event) => {
-            // this is incorrect
-            setQuiz1(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Choice:{' '}
-        <input
-          type="text"
-          value={quiz2}
-          onChange={(event) => {
-            // this is incorrect
-            setQuiz2(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Choice:{' '}
-        <input
-          type="text"
-          value={quiz3}
-          onChange={(event) => {
-            // this is incorrect
-            setQuiz3(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Choice:{' '}
-        <input
-          type="text"
-          value={quiz4}
-          onChange={(event) => {
-            // this is incorrect
-            setQuiz4(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '100%' }}>
-        Correct Answer:{' '}
-        <input
-          type="text"
-          value={correctAnswer}
-          onChange={(event) => {
-            setCorrectAnswer(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '50%' }}>
-        Longitude:{' '}
-        <input
-          type="text"
-          value={longitude}
-          onChange={(event) => {
-            setLongitude(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '50%' }}>
-        Latitude:{' '}
-        <input
-          type="text"
-          value={latitude}
-          onChange={(event) => {
-            setLatitude(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <label style={{ width: '25%' }}>
-        Radius:{' '}
-        <input
-          type="text"
-          value={radius}
-          onChange={(event) => {
-            setRadius(event.target.value);
-          }}
-          style={{ width: '100%' }}
-        />
-      </label>
-      <Button variant="contained" onClick={() => updateAd()}>
-        Save
-      </Button>
-      <Link href="/dashboard">
-        <Button variant="contained">Cancel</Button>
-      </Link>
+      <div className="topRow">
+        <div className="title">Editing {ad.name}</div>
+        <div className="deleteContainer">
+          <Button variant="contained" onClick={() => removeAd()}>
+            Delete
+          </Button>
+        </div>
+        <div className="adItem">
+          Name:{' '}
+          <input
+            type="text"
+            value={name}
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Uri:{' '}
+          <input
+            type="text"
+            value={uri}
+            onChange={(event) => {
+              setUri(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Website:{' '}
+          <input
+            type="text"
+            value={website}
+            onChange={(event) => {
+              setWebsite(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Question:{' '}
+          <input
+            type="text"
+            value={question}
+            onChange={(event) => {
+              setQuestion(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Choice:{' '}
+          <input
+            type="text"
+            value={quiz1}
+            onChange={(event) => {
+              // this is incorrect
+              setQuiz1(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Choice:{' '}
+          <input
+            type="text"
+            value={quiz2}
+            onChange={(event) => {
+              // this is incorrect
+              setQuiz2(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Choice:{' '}
+          <input
+            type="text"
+            value={quiz3}
+            onChange={(event) => {
+              // this is incorrect
+              setQuiz3(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Choice:{' '}
+          <input
+            type="text"
+            value={quiz4}
+            onChange={(event) => {
+              // this is incorrect
+              setQuiz4(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Correct Answer:{' '}
+          <input
+            type="text"
+            value={correctAnswer}
+            onChange={(event) => {
+              setCorrectAnswer(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Longitude:{' '}
+          <input
+            type="text"
+            value={longitude}
+            onChange={(event) => {
+              setLongitude(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Latitude:{' '}
+          <input
+            type="text"
+            value={latitude}
+            onChange={(event) => {
+              setLatitude(event.target.value);
+            }}
+          />
+        </div>
+        <div className="adItem">
+          Radius:{' '}
+          <input
+            type="text"
+            value={radius}
+            onChange={(event) => {
+              setRadius(event.target.value);
+            }}
+          />
+        </div>
+        <Button variant="contained" onClick={() => updateAd()}>
+          Save
+        </Button>
+        <Link href="/dashboard">
+          <Button variant="contained">Cancel</Button>
+        </Link>
+      </div>
       <style jsx>
         {`
           .topRow {
             flex: 1;
             display: flex;
-            width: 50%;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: flex-start;
+            padding-top: 200px;
             padding-bottom: 15px;
-            background-color: white;
+            margin-left: 15%;
+            margin-right: 15%;
+            padding-bottom: 50px;
           }
           @media (max-width: 768px) {
             .topRow {
               padding-top: 200px;
               padding-bottom: 15px;
             }
+          }
+          .listContainer {
+            flex-direction: column;
+          }
+          .title {
+            align-self: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+          }
+          .deleteContainer {
+            align-self: flex-end;
+          }
+          .adItem {
+            margin-top: 5px;
+            margin-bottom: 5px;
           }
         `}
       </style>

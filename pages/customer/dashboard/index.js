@@ -15,22 +15,30 @@ function Dashboard({ advertisements }) {
   return (
     <>
       <div className="topRow">
-        {createAd && <CreateAdvertisement />}
+        <div className="title">Your Advertisements</div>
+        <div key="create" className="createContainer">
+          <Link
+            href="/customer/dashboard/create-advertisement"
+            as="/dashboard/create-advertisement"
+          >
+            <Button variant="contained">Create</Button>
+          </Link>
+        </div>
         {!createAd && (
           <div>
             {advertisements.length !== 0 ? (
               advertisements.map((ad) => (
-                <div key={ad.name}>
-                  <div>Name: {ad.name}</div>
-                  <div>Views: {ad.viewers}</div>
-                  <div>Uri: {ad.uri}</div>
-                  <div>Website: {ad.website}</div>
-                  <div>
+                <div key={ad.name} className="advertisementContainer">
+                  <div className="adItem">Name: {ad.name}</div>
+                  <div className="adItem">Views: {ad.viewers}</div>
+                  <div className="adItem">Uri: {ad.uri}</div>
+                  <div className="adItem">Website: {ad.website}</div>
+                  <div className="adItem">
                     Geographic Spread: {ad.longitude}, {ad.latitude}: {ad.radius} miles.
                   </div>
-                  <div>Age Range: ___</div>
-                  <div>Gender: ___</div>
-                  <div>Shortcut Buttons: ___, ___, ____.</div>
+                  <div className="adItem">Age Range: ___</div>
+                  <div className="adItem">Gender: ___</div>
+                  <div className="adItem">Shortcut Buttons: ___, ___, ____.</div>
                   <Link
                     href={`/admin/edit-advertisement?slug=${ad.slug}`}
                     as={`/dashboard/edit-advertisement/${ad.slug}`}
@@ -44,14 +52,6 @@ function Dashboard({ advertisements }) {
                 <div>You currently have no Advertisements</div>
               </div>
             )}
-            <div key="create">
-              <Link
-                href="/customer/dashboard/create-advertisement"
-                as="/dashboard/create-advertisement"
-              >
-                <Button variant="contained">Create</Button>
-              </Link>
-            </div>
           </div>
         )}
       </div>
@@ -62,16 +62,34 @@ function Dashboard({ advertisements }) {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding-top: 300px;
+            align-items: flex-start;
+            padding-top: 200px;
             padding-bottom: 15px;
-            background-color: white;
+            margin-left: 15%;
+            margin-right: 15%;
+            padding-bottom: 50px;
           }
           @media (max-width: 768px) {
             .topRow {
               padding-top: 200px;
               padding-bottom: 15px;
             }
+          }
+          .createContainer {
+            align-self: flex-end;
+          }
+          .title {
+            align-self: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+          }
+          .advertisementContainer {
+            margin-bottom: 45px;
+            justify-content: space-around;
+          }
+          .adItem {
+            margin-top: 5px;
+            margin-bottom: 5px;
           }
         `}
       </style>
